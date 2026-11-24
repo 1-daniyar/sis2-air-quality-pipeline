@@ -28,7 +28,7 @@ from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import cm
-from reportlab.lib.utils import ImageReader
+from reportlab.lib.utils import ImageReader, simpleSplit
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import (BaseDocTemplate, Frame, Image, KeepTogether, PageBreak, PageTemplate, Paragraph,
@@ -46,6 +46,8 @@ pdfmetrics.registerFont(TTFont("DejaVu-Bold", str(FONT_DIR / "DejaVuSans-Bold.tt
 pdfmetrics.registerFont(TTFont("DejaVu-Italic", str(FONT_DIR / "DejaVuSans-Oblique.ttf")))
 pdfmetrics.registerFont(TTFont("DejaVu-BoldItalic", str(FONT_DIR / "DejaVuSans-BoldOblique.ttf")))
 pdfmetrics.registerFont(TTFont("DejaVuMono", str(FONT_DIR / "DejaVuSansMono.ttf")))
+pdfmetrics.registerFont(TTFont("DejaVuSerif", str(FONT_DIR / "DejaVuSerif.ttf")))
+pdfmetrics.registerFont(TTFont("DejaVuSerif-Bold", str(FONT_DIR / "DejaVuSerif-Bold.ttf")))
 pdfmetrics.registerFontFamily("DejaVu", normal="DejaVu", bold="DejaVu-Bold", italic="DejaVu-Italic", boldItalic="DejaVu-BoldItalic")
 
 base = getSampleStyleSheet()
@@ -234,12 +236,45 @@ class ReportDoc(BaseDocTemplate):
         frame = Frame(self.leftMargin, self.bottomMargin, self.width, self.height, id="main")
         self.addPageTemplates([PageTemplate(id="all", frames=[frame], onPage=self.decorate)])
 
+    title_info = {}
+
     def decorate(self, canvas, doc):
+        if doc.page == 1:
+            self.draw_title_page(canvas)
+            return
         canvas.saveState()
         canvas.setFont("DejaVu", 7.5)
         canvas.setFillColor(colors.HexColor("#666666"))
         canvas.drawString(2 * cm, 1.1 * cm, "SIS2 - Air-quality streaming and validation pipeline")
         canvas.drawRightString(A4[0] - 2 * cm, 1.1 * cm, f"Page {doc.page}")
+        canvas.restoreState()
+
+    def draw_title_page(self, canvas):
+        """Title page in the layout of the KBTU SIS title-page template."""
+        info = self.title_info
+        width, height = A4
+        canvas.saveState()
+        canvas.setFillColor(colors.black)
+        canvas.setFont("DejaVuSerif", 20)
+        canvas.drawCentredString(width / 2, height - 4.6 * cm, "Kazakh-British Technical University")
+        canvas.setFont("DejaVuSerif", 15)
+        canvas.drawCentredString(width / 2, height - 6.0 * cm, info.get("course_short", "Data collection and preparation"))
+        canvas.setFont("DejaVuSerif", 12)
+        y = height - 11.6 * cm
+        canvas.drawCentredString(width / 2, y, f"STUDENTS' INDEPENDENT STUDY (SIS) \u2116{info.get('sis_number', 2)}")
+        canvas.setFont("DejaVuSerif", 11)
+        for line in simpleSplit(info.get("project_title", ""), "DejaVuSerif", 11, width - 6 * cm):
+            y -= 0.65 * cm
+            canvas.drawCentredString(width / 2, y, line)
+        y = height - 15.2 * cm
+        canvas.setFont("DejaVuSerif-Bold", 10)
+        canvas.drawString(2.4 * cm, y, f"Full Name: {info.get('student_name', '')}")
+        canvas.drawString(2.4 * cm, y - 0.8 * cm, f"ID: {info.get('student_id', '')}")
+        if info.get("group_number"):
+            canvas.drawString(2.4 * cm, y - 1.6 * cm, f"Group: {info['group_number']}")
+        canvas.setFont("DejaVuSerif-Bold", 10)
+        canvas.drawCentredString(width / 2, 3.4 * cm, info.get("date", ""))
+        canvas.drawCentredString(width / 2, 2.6 * cm, "Almaty")
         canvas.restoreState()
 
     def afterFlowable(self, flowable):
@@ -266,20 +301,11 @@ def build() -> int:
     valid_df, invalid_df = csv_load(config.VALID_CSV), csv_load(config.INVALID_CSV)
     test_df = csv_load(config.VALIDATION_TEST_CSV)
     architecture = make_architecture_diagram()
-    submitted = cfg.get("submission_date") or date.today().strftime("%d %B %Y")
+    submitted = cfg.get("submission_date") or date.today().strftime("%d.%m.%Y")
     n_cities, n_days = len(config.CITIES), (pd.Timestamp(coll.get("end_date", config.END_DATE)) - pd.Timestamp(coll.get("start_date", config.START_DATE))).days + 1
 
     story = []
-    # ---------------- title page ----
-    story += [Spacer(1, 3.5 * cm), P("Data Streaming and Validation Pipeline with Apache Kafka and Pandera", TITLE),
-              P("Air quality in Almaty, Astana, Shymkent and Karaganda", SUBTITLE), Spacer(1, 1.2 * cm),
-              P(f"<b>Course:</b> {esc(cfg.get('course', ''))}", SUBTITLE), P("<b>Assignment:</b> SIS2 - Project", SUBTITLE),
-              P(f"<b>Student:</b> {esc(cfg.get('student_name', ''))}", SUBTITLE),
-              P(f"<b>Group:</b> {esc(cfg.get('group_number', ''))}", SUBTITLE),
-              P(esc(cfg.get("university", "")), SUBTITLE), P(f"<b>Submission date:</b> {esc(submitted)}", SUBTITLE),
-              Spacer(1, 1.5 * cm)]
-    if cfg.get("github_url"):
-        story.append(P(f"<b>Repository:</b> {esc(cfg['github_url'])}", SUBTITLE))
+    # ---------------- title page (drawn on the canvas, see ReportDoc.draw_title_page) ----
     story.append(PageBreak())
 
     toc = TableOfContents()
@@ -620,6 +646,14 @@ def build() -> int:
         for shot in shots:
             story += figure(shot, shot.stem.replace("_", " "), 15.5)
 
+    ReportDoc.title_info = {
+        "course_short": cfg.get("course_short", "Data collection and preparation"),
+        "sis_number": cfg.get("sis_number", 2),
+        "project_title": cfg.get("project_title", "Data Streaming and Validation Pipeline with Apache Kafka and Pandera: "
+                                                  "Air Quality in Almaty, Astana, Shymkent and Karaganda"),
+        "student_name": cfg.get("student_name", ""), "student_id": cfg.get("student_id", ""),
+        "group_number": cfg.get("group_number", ""), "date": submitted,
+    }
     doc = ReportDoc(str(OUTPUT_PDF), title="SIS2 - Air-quality streaming and validation pipeline", author=cfg.get("student_name", ""))
     doc.multiBuild(story)
     print(f"[report] written {OUTPUT_PDF.relative_to(PROJECT_ROOT)} ({OUTPUT_PDF.stat().st_size // 1024} KB)")
