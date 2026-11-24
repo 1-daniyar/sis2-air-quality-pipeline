@@ -5,4 +5,4 @@ pandera>=0.20,<1.0
 requests>=2.31
 matplotlib>=3.8
 seaborn>=0.13
-reportlab>=4.0
+reportlab>=4.0,<5.0
