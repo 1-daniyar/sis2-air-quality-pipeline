@@ -1,0 +1,7 @@
+[cleaner] input records (valid): 1344
+[cleaner] missing values filled by interpolation: 0; rows dropped (no PM): 0
+[cleaner] duplicates removed: 0
+[cleaner] high-pollution events (filter): 109
+[cleaner] records after cleaning: 1344 -> cleaned_data.csv
+
+[exit code 0]

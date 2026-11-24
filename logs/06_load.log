@@ -1,0 +1,15 @@
+[loader] load #1: offered=1344 inserted=1344 ignored=0 table_rows=1344
+[loader] load #2: offered=1344 inserted=0 ignored=1344 table_rows=1344
+[loader] idempotent: True (checksum unchanged: True)
+[loader] processed=1344 stored_in_db=1344 cleaned_found_in_db=1344
+[loader] SQL total_rows: [[1344]]
+[loader] SQL rows_per_city: [['Almaty', 336], ['Astana', 336], ['Karaganda', 336], ['Shymkent', 336]]
+[loader] SQL observation_period: [['2026-11-10T00:00', '2026-11-23T23:00', 14]]
+[loader] SQL duplicate_check_expect_zero_rows: []
+[loader] SQL orphan_rows_expect_zero: [[0]]
+[loader] SQL null_counts: [[0, 0, 0, 0]]
+[loader] SQL average_pm25_per_city: [['Almaty', 26.02, 60.5], ['Shymkent', 21.09, 53.2], ['Astana', 15.0, 40.9], ['Karaganda', 14.42, 28.5]]
+[loader] SQL aqi_category_distribution: [['Moderate', 791], ['Fair', 464], ['Good', 81], ['Poor', 8]]
+[loader] SQL five_most_polluted_hours: [['Almaty', '2026-11-18T10:00', 60.5, 65.0], ['Almaty', '2026-11-23T20:00', 53.9, 62.0], ['Shymkent', '2026-11-19T21:00', 53.2, 63.0], ['Almaty', '2026-11-23T19:00', 53.1, 62.0], ['Almaty', '2026-11-14T21:00', 53.0, 62.0]]
+
+[exit code 0]

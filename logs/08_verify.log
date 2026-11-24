@@ -1,0 +1,24 @@
+[verify] record counts per stage:
+[verify]   Collected from API       1344
+[verify]   Published to Kafka       1344
+[verify]   Consumed from Kafka      1344
+[verify]   Valid after Pandera      1344
+[verify]   Invalid (quarantined)    0
+[verify]   After cleaning           1344
+[verify]   Stored in SQLite3        1344
+[verify] note: Every collected record was published to Kafka (no transmission loss).
+[verify] note: Every published message was consumed (published = consumed).
+[verify] note: Validation split the 1344 consumed records into 1344 valid and 0 invalid (no record was rejected).
+[verify] note: No record was removed during cleaning.
+[verify] note: All cleaned records are stored in SQLite3 (cleaned = stored).
+[verify] PASS  every cleaned record is present in the database (1344 of 1344 found)
+[verify] PASS  database has no duplicate (city, time) rows (0 duplicates)
+[verify] PASS  all configured cities are present (Almaty, Astana, Karaganda, Shymkent)
+[verify] PASS  stored PM2.5 values equal the cleaned values (1344 rows compared)
+[verify] PASS  database covers the requested period (14 days stored, 14 requested)
+[verify] PASS  repeated loading creates no duplicates (idempotency) (see data/idempotency_report.json)
+[verify] PASS  validation schema detects the deliberately invalid test records (see data/validation_test_results.csv)
+[verify] PASS  at least 200 records collected (1344)
+[verify] PASS  at least 200 messages published and consumed (published=1344 consumed=1344)
+
+[exit code 0]

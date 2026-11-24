@@ -1,0 +1,187 @@
+{
+  "rationale": {
+    "test_records": "Test records created for the validation demo must never reach the database.",
+    "missing_values": "Short gaps in hourly model data are filled by linear interpolation inside each city so that daily and hourly statistics are not biased; rows that still have no PM10/PM2.5 value carry no information for the analysis and are dropped.",
+    "duplicates": "Repeated rows would be counted twice in every aggregate and would violate the database primary key.",
+    "dtypes": "CSV files store everything as text; real datetime and numeric types are required for sorting, time features, SQL storage and plotting.",
+    "text": "Trimming whitespace and unifying case prevents the same city from appearing under several spellings in GroupBy results.",
+    "numpy": "np.select / np.where / np.log1p / np.divide create analysis features (AQI category, WHO exceedance flag, log-PM2.5, PM ratio, z-score) in a fast vectorised way.",
+    "filtering": "Combining several conditions isolates the most polluted evening and night hours, which are the hours of interest for the research question.",
+    "groupby": "Aggregation by city, day and part of the day answers the comparison question between the four cities.",
+    "reshape": "pivot_table gives a city x hour matrix (heat map), melt converts the pollutant columns to long format, unstack builds a day x city table."
+  },
+  "input_records": 1344,
+  "test_records_removed": 0,
+  "dtypes_before": {
+    "record_id": "object",
+    "city": "object",
+    "region": "object",
+    "latitude": "float64",
+    "longitude": "float64",
+    "time": "object",
+    "pm10": "float64",
+    "pm2_5": "float64",
+    "carbon_monoxide": "float64",
+    "nitrogen_dioxide": "float64",
+    "sulphur_dioxide": "float64",
+    "ozone": "float64",
+    "european_aqi": "int64",
+    "collected_at": "object"
+  },
+  "duplicates": {
+    "exact_duplicate_rows": 0,
+    "duplicate_record_id": 0,
+    "duplicate_city_time": 0,
+    "rows_after_removal": 1344
+  },
+  "missing_values": {
+    "nulls_before": {
+      "pm10": 0,
+      "pm2_5": 0,
+      "carbon_monoxide": 0,
+      "nitrogen_dioxide": 0,
+      "sulphur_dioxide": 0,
+      "ozone": 0,
+      "european_aqi": 0
+    },
+    "nulls_after_interpolation": {
+      "pm10": 0,
+      "pm2_5": 0,
+      "carbon_monoxide": 0,
+      "nitrogen_dioxide": 0,
+      "sulphur_dioxide": 0,
+      "ozone": 0,
+      "european_aqi": 0
+    },
+    "values_filled": 0,
+    "rows_dropped_without_pm": 0,
+    "max_interpolation_gap_hours": 3
+  },
+  "numpy": {
+    "pm2_5_mean": 19.133928571428573,
+    "pm2_5_median": 17.5,
+    "pm2_5_std": 10.911471848456554,
+    "pm2_5_p90": 35.370000000000005,
+    "iqr_upper_fence": 44.862500000000004,
+    "iqr_outliers": 35,
+    "features_created": [
+      "hour",
+      "date",
+      "is_weekend",
+      "day_period",
+      "aqi_category",
+      "pm25_exceeds_who",
+      "pm2_5_log",
+      "pm_ratio",
+      "pm2_5_zscore"
+    ]
+  },
+  "filtering": {
+    "condition": "pm2_5 >= 35.4 (90th percentile) AND day_period in (evening, night) AND european_aqi is not null",
+    "rows_matching": 109,
+    "share_of_dataset_percent": 8.11,
+    "rows_per_city": {
+      "Almaty": 65,
+      "Shymkent": 40,
+      "Astana": 4
+    }
+  },
+  "groupby": {
+    "city_summary": [
+      {
+        "city": "Almaty",
+        "records": 336,
+        "pm2_5_mean": 26.02,
+        "pm2_5_median": 24.4,
+        "pm2_5_std": 11.94,
+        "pm2_5_max": 60.5,
+        "pm10_mean": 28.23,
+        "aqi_mean": 46.79,
+        "who_exceedance_share": 0.81
+      },
+      {
+        "city": "Astana",
+        "records": 336,
+        "pm2_5_mean": 15.0,
+        "pm2_5_median": 15.35,
+        "pm2_5_std": 7.95,
+        "pm2_5_max": 40.9,
+        "pm10_mean": 18.05,
+        "aqi_mean": 35.87,
+        "who_exceedance_share": 0.51
+      },
+      {
+        "city": "Karaganda",
+        "records": 336,
+        "pm2_5_mean": 14.42,
+        "pm2_5_median": 15.2,
+        "pm2_5_std": 6.56,
+        "pm2_5_max": 28.5,
+        "pm10_mean": 19.04,
+        "aqi_mean": 36.21,
+        "who_exceedance_share": 0.51
+      },
+      {
+        "city": "Shymkent",
+        "records": 336,
+        "pm2_5_mean": 21.09,
+        "pm2_5_median": 19.4,
+        "pm2_5_std": 11.75,
+        "pm2_5_max": 53.2,
+        "pm10_mean": 23.68,
+        "aqi_mean": 41.32,
+        "who_exceedance_share": 0.63
+      }
+    ],
+    "period_city_rows": 16,
+    "daily_city_rows": 56
+  },
+  "reshaping": {
+    "pivot_table_shape": [
+      4,
+      24
+    ],
+    "unstack_shape": [
+      14,
+      4
+    ],
+    "melt_shape": [
+      8064,
+      5
+    ],
+    "wide_columns_melted": [
+      "pm10",
+      "pm2_5",
+      "carbon_monoxide",
+      "nitrogen_dioxide",
+      "sulphur_dioxide",
+      "ozone"
+    ]
+  },
+  "dtypes_after": {
+    "record_id": "object",
+    "city": "object",
+    "region": "object",
+    "latitude": "float64",
+    "longitude": "float64",
+    "time": "datetime64[ns]",
+    "date": "object",
+    "hour": "int32",
+    "day_period": "object",
+    "is_weekend": "int64",
+    "pm10": "float64",
+    "pm2_5": "float64",
+    "carbon_monoxide": "float64",
+    "nitrogen_dioxide": "float64",
+    "sulphur_dioxide": "float64",
+    "ozone": "float64",
+    "european_aqi": "float64",
+    "aqi_category": "object",
+    "pm25_exceeds_who": "int64",
+    "pm2_5_log": "float64",
+    "pm_ratio": "float64",
+    "pm2_5_zscore": "float64",
+    "collected_at": "object"
+  },
+  "records_after_cleaning": 1344
+}

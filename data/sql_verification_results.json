@@ -1,0 +1,190 @@
+{
+  "integrity_check": "ok",
+  "foreign_key_violations": 0,
+  "queries": {
+    "total_rows": {
+      "sql": "SELECT COUNT(*) AS total_rows FROM measurements;",
+      "columns": [
+        "total_rows"
+      ],
+      "rows": [
+        [
+          1344
+        ]
+      ]
+    },
+    "rows_per_city": {
+      "sql": "SELECT c.city_name, COUNT(*) AS rows_count\nFROM measurements m JOIN cities c ON c.city_id = m.city_id\nGROUP BY c.city_name\nORDER BY c.city_name;",
+      "columns": [
+        "city_name",
+        "rows_count"
+      ],
+      "rows": [
+        [
+          "Almaty",
+          336
+        ],
+        [
+          "Astana",
+          336
+        ],
+        [
+          "Karaganda",
+          336
+        ],
+        [
+          "Shymkent",
+          336
+        ]
+      ]
+    },
+    "observation_period": {
+      "sql": "SELECT MIN(observed_at) AS first_hour, MAX(observed_at) AS last_hour, COUNT(DISTINCT observed_date) AS days\nFROM measurements;",
+      "columns": [
+        "first_hour",
+        "last_hour",
+        "days"
+      ],
+      "rows": [
+        [
+          "2026-11-10T00:00",
+          "2026-11-23T23:00",
+          14
+        ]
+      ]
+    },
+    "duplicate_check_expect_zero_rows": {
+      "sql": "SELECT city_id, observed_at, COUNT(*) AS copies\nFROM measurements\nGROUP BY city_id, observed_at\nHAVING COUNT(*) > 1;",
+      "columns": [
+        "city_id",
+        "observed_at",
+        "copies"
+      ],
+      "rows": []
+    },
+    "orphan_rows_expect_zero": {
+      "sql": "SELECT COUNT(*) AS orphan_rows\nFROM measurements m LEFT JOIN cities c ON c.city_id = m.city_id\nWHERE c.city_id IS NULL;",
+      "columns": [
+        "orphan_rows"
+      ],
+      "rows": [
+        [
+          0
+        ]
+      ]
+    },
+    "null_counts": {
+      "sql": "SELECT SUM(pm10 IS NULL) AS pm10_nulls, SUM(pm2_5 IS NULL) AS pm2_5_nulls,\n       SUM(european_aqi IS NULL) AS aqi_nulls, SUM(ozone IS NULL) AS ozone_nulls\nFROM measurements;",
+      "columns": [
+        "pm10_nulls",
+        "pm2_5_nulls",
+        "aqi_nulls",
+        "ozone_nulls"
+      ],
+      "rows": [
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "average_pm25_per_city": {
+      "sql": "SELECT c.city_name, ROUND(AVG(m.pm2_5), 2) AS avg_pm2_5, ROUND(MAX(m.pm2_5), 2) AS max_pm2_5\nFROM measurements m JOIN cities c ON c.city_id = m.city_id\nGROUP BY c.city_name\nORDER BY avg_pm2_5 DESC;",
+      "columns": [
+        "city_name",
+        "avg_pm2_5",
+        "max_pm2_5"
+      ],
+      "rows": [
+        [
+          "Almaty",
+          26.02,
+          60.5
+        ],
+        [
+          "Shymkent",
+          21.09,
+          53.2
+        ],
+        [
+          "Astana",
+          15.0,
+          40.9
+        ],
+        [
+          "Karaganda",
+          14.42,
+          28.5
+        ]
+      ]
+    },
+    "aqi_category_distribution": {
+      "sql": "SELECT aqi_category, COUNT(*) AS rows_count\nFROM measurements\nGROUP BY aqi_category\nORDER BY rows_count DESC;",
+      "columns": [
+        "aqi_category",
+        "rows_count"
+      ],
+      "rows": [
+        [
+          "Moderate",
+          791
+        ],
+        [
+          "Fair",
+          464
+        ],
+        [
+          "Good",
+          81
+        ],
+        [
+          "Poor",
+          8
+        ]
+      ]
+    },
+    "five_most_polluted_hours": {
+      "sql": "SELECT c.city_name, m.observed_at, m.pm2_5, m.european_aqi\nFROM measurements m JOIN cities c ON c.city_id = m.city_id\nORDER BY m.pm2_5 DESC\nLIMIT 5;",
+      "columns": [
+        "city_name",
+        "observed_at",
+        "pm2_5",
+        "european_aqi"
+      ],
+      "rows": [
+        [
+          "Almaty",
+          "2026-11-18T10:00",
+          60.5,
+          65.0
+        ],
+        [
+          "Almaty",
+          "2026-11-23T20:00",
+          53.9,
+          62.0
+        ],
+        [
+          "Shymkent",
+          "2026-11-19T21:00",
+          53.2,
+          63.0
+        ],
+        [
+          "Almaty",
+          "2026-11-23T19:00",
+          53.1,
+          62.0
+        ],
+        [
+          "Almaty",
+          "2026-11-14T21:00",
+          53.0,
+          62.0
+        ]
+      ]
+    }
+  }
+}

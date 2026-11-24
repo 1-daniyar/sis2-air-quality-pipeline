@@ -1,0 +1,210 @@
+{
+  "shape": [
+    1344,
+    20
+  ],
+  "dtypes": {
+    "record_id": "object",
+    "city": "object",
+    "region": "object",
+    "observed_at": "datetime64[ns]",
+    "observed_date": "object",
+    "hour": "int64",
+    "day_period": "object",
+    "is_weekend": "int64",
+    "pm10": "float64",
+    "pm2_5": "float64",
+    "carbon_monoxide": "float64",
+    "nitrogen_dioxide": "float64",
+    "sulphur_dioxide": "float64",
+    "ozone": "float64",
+    "european_aqi": "float64",
+    "aqi_category": "object",
+    "pm25_exceeds_who": "int64",
+    "pm2_5_log": "float64",
+    "pm_ratio": "float64",
+    "pm2_5_zscore": "float64"
+  },
+  "missing_values": {},
+  "descriptive_statistics": [
+    {
+      "statistic": "count",
+      "pm10": 1344.0,
+      "pm2_5": 1344.0,
+      "carbon_monoxide": 1344.0,
+      "nitrogen_dioxide": 1344.0,
+      "sulphur_dioxide": 1344.0,
+      "ozone": 1344.0,
+      "european_aqi": 1344.0
+    },
+    {
+      "statistic": "mean",
+      "pm10": 22.25,
+      "pm2_5": 19.13,
+      "carbon_monoxide": 581.72,
+      "nitrogen_dioxide": 16.18,
+      "sulphur_dioxide": 32.85,
+      "ozone": 48.75,
+      "european_aqi": 40.05
+    },
+    {
+      "statistic": "std",
+      "pm10": 12.71,
+      "pm2_5": 10.92,
+      "carbon_monoxide": 464.58,
+      "nitrogen_dioxide": 11.31,
+      "sulphur_dioxide": 24.3,
+      "ozone": 17.24,
+      "european_aqi": 10.0
+    },
+    {
+      "statistic": "min",
+      "pm10": 0.9,
+      "pm2_5": 0.8,
+      "carbon_monoxide": 132.0,
+      "nitrogen_dioxide": 1.5,
+      "sulphur_dioxide": 3.9,
+      "ozone": 3.0,
+      "european_aqi": 13.0
+    },
+    {
+      "statistic": "25%",
+      "pm10": 12.78,
+      "pm2_5": 11.3,
+      "carbon_monoxide": 267.0,
+      "nitrogen_dioxide": 6.8,
+      "sulphur_dioxide": 13.5,
+      "ozone": 38.0,
+      "european_aqi": 35.0
+    },
+    {
+      "statistic": "50%",
+      "pm10": 20.8,
+      "pm2_5": 17.5,
+      "carbon_monoxide": 414.5,
+      "nitrogen_dioxide": 12.8,
+      "sulphur_dioxide": 24.1,
+      "ozone": 48.0,
+      "european_aqi": 42.0
+    },
+    {
+      "statistic": "75%",
+      "pm10": 29.42,
+      "pm2_5": 24.72,
+      "carbon_monoxide": 698.0,
+      "nitrogen_dioxide": 22.9,
+      "sulphur_dioxide": 48.32,
+      "ozone": 61.0,
+      "european_aqi": 46.0
+    },
+    {
+      "statistic": "max",
+      "pm10": 68.0,
+      "pm2_5": 60.5,
+      "carbon_monoxide": 3475.0,
+      "nitrogen_dioxide": 56.6,
+      "sulphur_dioxide": 157.0,
+      "ozone": 103.0,
+      "european_aqi": 70.0
+    }
+  ],
+  "categorical_counts": {
+    "city": {
+      "Almaty": 336,
+      "Astana": 336,
+      "Karaganda": 336,
+      "Shymkent": 336
+    },
+    "region": {
+      "Almaty City": 336,
+      "Astana City": 336,
+      "Karaganda Region": 336,
+      "Shymkent City": 336
+    },
+    "day_period": {
+      "night": 336,
+      "morning": 336,
+      "afternoon": 336,
+      "evening": 336
+    },
+    "aqi_category": {
+      "Moderate": 791,
+      "Fair": 464,
+      "Good": 81,
+      "Poor": 8
+    }
+  },
+  "grouped_means_by_city": [
+    {
+      "city": "Almaty",
+      "pm10": 28.23,
+      "pm2_5": 26.02,
+      "carbon_monoxide": 947.29,
+      "nitrogen_dioxide": 29.12,
+      "sulphur_dioxide": 56.95,
+      "ozone": 55.68,
+      "european_aqi": 46.79
+    },
+    {
+      "city": "Astana",
+      "pm10": 18.05,
+      "pm2_5": 15.0,
+      "carbon_monoxide": 462.53,
+      "nitrogen_dioxide": 10.41,
+      "sulphur_dioxide": 21.19,
+      "ozone": 38.21,
+      "european_aqi": 35.87
+    },
+    {
+      "city": "Karaganda",
+      "pm10": 19.04,
+      "pm2_5": 14.42,
+      "carbon_monoxide": 321.94,
+      "nitrogen_dioxide": 7.1,
+      "sulphur_dioxide": 12.98,
+      "ozone": 57.07,
+      "european_aqi": 36.21
+    },
+    {
+      "city": "Shymkent",
+      "pm10": 23.68,
+      "pm2_5": 21.09,
+      "carbon_monoxide": 595.14,
+      "nitrogen_dioxide": 18.09,
+      "sulphur_dioxide": 40.28,
+      "ozone": 44.05,
+      "european_aqi": 41.32
+    }
+  ],
+  "correlation_with_pm2_5": {
+    "pm10": 0.921,
+    "pm2_5": 1.0,
+    "carbon_monoxide": 0.525,
+    "nitrogen_dioxide": 0.759,
+    "sulphur_dioxide": 0.746,
+    "ozone": -0.325,
+    "european_aqi": 0.925
+  },
+  "figures": [
+    "fig1_mean_pm25_by_city.png",
+    "fig2_daily_pm25_trend.png",
+    "fig3_heatmap_city_hour.png",
+    "fig4_pm25_boxplot.png",
+    "fig5_aqi_category_share.png",
+    "fig6_correlation.png"
+  ],
+  "findings": {
+    "fig1": "Almaty has the highest mean PM2.5 (26.0 µg/m³) and Karaganda the lowest (14.4 µg/m³); the difference is a factor of 1.8. Mean PM2.5 is above the WHO 24-hour guideline of 15 µg/m³ in: Almaty, Shymkent.",
+    "fig2": "Averaged over all cities the most polluted day is 2026-11-18 (25.0 µg/m³) and the cleanest is 2026-11-11 (10.8 µg/m³). The daily mean exceeded the WHO guideline on 12 of 14 days in Almaty, the most among the cities.",
+    "fig3": "Across all cities PM2.5 is highest around 21:00 (28.0 µg/m³) and lowest around 14:00 (12.1 µg/m³). By part of the day, 'evening' is the most polluted (26.2 µg/m³) and 'afternoon' the least (14.2 µg/m³).",
+    "fig4": "Almaty shows the widest spread of hourly values (std 11.9 µg/m³, maximum 60.5 µg/m³). The median PM2.5 ranges from 15.2 to 24.4 µg/m³ between the cities.",
+    "fig5": "The share of hours with European AQI 'Poor' or worse is largest in Almaty (1.5 % of hours) and smallest in Astana (0.0 %).",
+    "fig6": "PM2.5 is most strongly correlated with european_aqi (r = 0.92); its correlation with PM10 is 0.92, with the European AQI 0.92.",
+    "conclusions": [
+      "Highest average PM2.5: Almaty (26.0 µg/m³); lowest: Karaganda (14.4 µg/m³).",
+      "Share of hours above the WHO 24-hour PM2.5 guideline: Almaty 81 %, Shymkent 63 %, Karaganda 51 %, Astana 51 %.",
+      "Typical daily rhythm: peak near 21:00, minimum near 14:00.",
+      "Strongest relation of PM2.5 to another variable: european_aqi (r = 0.92)."
+    ]
+  }
+}

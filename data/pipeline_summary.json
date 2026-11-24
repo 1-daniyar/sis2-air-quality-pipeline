@@ -1,0 +1,93 @@
+{
+  "collection": {
+    "endpoint": "https://air-quality-api.open-meteo.com/v1/air-quality",
+    "start_date": "2026-11-10",
+    "end_date": "2026-11-23",
+    "collected_records": 1344,
+    "records_per_city": {
+      "Almaty": 336,
+      "Astana": 336,
+      "Karaganda": 336,
+      "Shymkent": 336
+    },
+    "failed_cities": [],
+    "requests": [
+      {
+        "city": "Almaty",
+        "attempt": 1,
+        "status_code": 200,
+        "result": "ok"
+      },
+      {
+        "city": "Astana",
+        "attempt": 1,
+        "status_code": 200,
+        "result": "ok"
+      },
+      {
+        "city": "Shymkent",
+        "attempt": 1,
+        "status_code": 200,
+        "result": "ok"
+      },
+      {
+        "city": "Karaganda",
+        "attempt": 1,
+        "status_code": 200,
+        "result": "ok"
+      }
+    ],
+    "raw_csv": "data/raw_data.csv",
+    "updated_at": "2026-11-24T17:55:07+00:00"
+  },
+  "producer": {
+    "run_id": "20261124T175508Z-564af0",
+    "topic": "air_quality_raw",
+    "records_loaded": 1344,
+    "sent": 1344,
+    "published": 1344,
+    "failed": 0,
+    "updated_at": "2026-11-24T17:55:09+00:00"
+  },
+  "consumer": {
+    "run_id": "20261124T175508Z-564af0",
+    "expected": 1344,
+    "consumed": 1344,
+    "skipped_other_runs": 0,
+    "failed_deserialization": 0,
+    "stop_reason": "expected message count reached",
+    "updated_at": "2026-11-24T17:55:11+00:00"
+  },
+  "validation": {
+    "total": 1344,
+    "valid": 1344,
+    "invalid": 0,
+    "validation_test_all_detected": true,
+    "updated_at": "2026-11-24T17:55:13+00:00"
+  },
+  "cleaning": {
+    "input": 1344,
+    "records_after_cleaning": 1344,
+    "values_filled": 0,
+    "rows_dropped_without_pm": 0,
+    "duplicates_removed": 0,
+    "updated_at": "2026-11-24T17:55:14+00:00"
+  },
+  "loading": {
+    "processed_records": 1344,
+    "stored_records": 1344,
+    "cleaned_records_found_in_db": 1344,
+    "idempotent": true,
+    "integrity_check": "ok",
+    "updated_at": "2026-11-24T17:55:16+00:00"
+  },
+  "analysis": {
+    "rows_analysed": 1344,
+    "figures": 6,
+    "updated_at": "2026-11-24T17:55:19+00:00"
+  },
+  "verification": {
+    "all_checks_passed": true,
+    "updated_at": "2026-11-24T17:55:21+00:00"
+  }
+}

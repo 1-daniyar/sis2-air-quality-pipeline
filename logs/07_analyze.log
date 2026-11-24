@@ -1,0 +1,13 @@
+[analysis] loaded 1344 rows from SQLite
+[analysis] figure saved: figures/fig1_mean_pm25_by_city.png
+[analysis] figure saved: figures/fig2_daily_pm25_trend.png
+[analysis] figure saved: figures/fig3_heatmap_city_hour.png
+[analysis] figure saved: figures/fig4_pm25_boxplot.png
+[analysis] figure saved: figures/fig5_aqi_category_share.png
+[analysis] figure saved: figures/fig6_correlation.png
+[analysis] finding: Highest average PM2.5: Almaty (26.0 µg/m³); lowest: Karaganda (14.4 µg/m³).
+[analysis] finding: Share of hours above the WHO 24-hour PM2.5 guideline: Almaty 81 %, Shymkent 63 %, Karaganda 51 %, Astana 51 %.
+[analysis] finding: Typical daily rhythm: peak near 21:00, minimum near 14:00.
+[analysis] finding: Strongest relation of PM2.5 to another variable: european_aqi (r = 0.92).
+
+[exit code 0]

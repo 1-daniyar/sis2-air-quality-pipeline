@@ -1,0 +1,9 @@
+[api] endpoint: https://air-quality-api.open-meteo.com/v1/air-quality
+[api] period: 2026-11-10 .. 2026-11-23, cities: Almaty, Astana, Shymkent, Karaganda
+[api] Almaty: 336 records
+[api] Astana: 336 records
+[api] Shymkent: 336 records
+[api] Karaganda: 336 records
+[api] collected records: 1344 -> raw_data.csv
+
+[exit code 0]

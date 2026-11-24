@@ -1,0 +1,13 @@
+[validator] validating 1344 records received from Kafka (9 rules)
+C:\Users\ospan\AppData\Local\Programs\Python\Python39\lib\site-packages\pandera\backends\pandas\error_formatters.py:268: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  concat_fn(check_failure_cases)
+[validator] validation test: 6 invalid test records injected, 6 detected, 0 real rows wrongly rejected
+[validator]   TEST test1_2026-11-10T03:30: pm2_5: in_range(0, 1000) (value=-12.5)
+[validator]   TEST test2_2026-11-10T03:30: city: isin(['Almaty', 'Astana', 'Shymkent', 'Karaganda']) (value=Atlantis)
+[validator]   TEST test3_not-a-date: time: coerce_dtype('datetime64[ns]') (value=not-a-date) | record_id: str_matches('^[a-z0-9]+_\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$') (value=test3_not-a-date)
+[validator]   TEST test4_2026-11-10T03:30: pm2_5 must not exceed pm10
+[validator]   TEST test5_2026-11-10T03:30: multiple_fields_uniqueness
+[validator]   TEST test6 (record_id missing): record_id: not_nullable (value=None)
+[validator] valid=1344 invalid=0 (quarantined in invalid_records.csv)
+
+[exit code 0]

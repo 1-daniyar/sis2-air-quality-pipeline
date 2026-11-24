@@ -1,0 +1,17 @@
+{
+  "first_load": {
+    "rows_offered": 1344,
+    "rows_inserted": 1344,
+    "rows_ignored_as_existing": 0,
+    "rows_in_table_after": 1344
+  },
+  "second_load": {
+    "rows_offered": 1344,
+    "rows_inserted": 0,
+    "rows_ignored_as_existing": 1344,
+    "rows_in_table_after": 1344
+  },
+  "checksum_after_first": "ed6420273128fb5aecc5746b22e1d2e3c7a638666dee7d9dfd764902ff3cbc86",
+  "checksum_after_second": "ed6420273128fb5aecc5746b22e1d2e3c7a638666dee7d9dfd764902ff3cbc86",
+  "idempotent": true
+}

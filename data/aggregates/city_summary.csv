@@ -1,0 +1,5 @@
+city,records,pm2_5_mean,pm2_5_median,pm2_5_std,pm2_5_max,pm10_mean,aqi_mean,who_exceedance_share
+Almaty,336,26.02,24.4,11.94,60.5,28.23,46.79,0.81
+Astana,336,15.0,15.35,7.95,40.9,18.05,35.87,0.51
+Karaganda,336,14.42,15.2,6.56,28.5,19.04,36.21,0.51
+Shymkent,336,21.09,19.4,11.75,53.2,23.68,41.32,0.63

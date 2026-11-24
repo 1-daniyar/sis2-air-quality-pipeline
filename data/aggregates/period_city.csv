@@ -1,0 +1,17 @@
+city,day_period,mean,max
+Almaty,afternoon,21.63,42.8
+Almaty,evening,37.76,53.9
+Almaty,morning,23.54,60.5
+Almaty,night,21.18,41.4
+Astana,afternoon,11.74,36.8
+Astana,evening,19.96,40.9
+Astana,morning,14.43,27.6
+Astana,night,13.88,28.5
+Karaganda,afternoon,11.9,26.7
+Karaganda,evening,18.32,28.5
+Karaganda,morning,13.09,23.5
+Karaganda,night,14.38,26.0
+Shymkent,afternoon,11.56,30.9
+Shymkent,evening,28.86,53.2
+Shymkent,morning,22.23,45.9
+Shymkent,night,21.72,42.7

@@ -1,0 +1,86 @@
+{
+  "counts": [
+    {
+      "stage": "Collected from API",
+      "count": 1344
+    },
+    {
+      "stage": "Published to Kafka",
+      "count": 1344
+    },
+    {
+      "stage": "Consumed from Kafka",
+      "count": 1344
+    },
+    {
+      "stage": "Valid after Pandera",
+      "count": 1344
+    },
+    {
+      "stage": "Invalid (quarantined)",
+      "count": 0
+    },
+    {
+      "stage": "After cleaning",
+      "count": 1344
+    },
+    {
+      "stage": "Stored in SQLite3",
+      "count": 1344
+    }
+  ],
+  "explanations": [
+    "Every collected record was published to Kafka (no transmission loss).",
+    "Every published message was consumed (published = consumed).",
+    "Validation split the 1344 consumed records into 1344 valid and 0 invalid (no record was rejected).",
+    "No record was removed during cleaning.",
+    "All cleaned records are stored in SQLite3 (cleaned = stored)."
+  ],
+  "checks": [
+    {
+      "check": "every cleaned record is present in the database",
+      "passed": true,
+      "detail": "1344 of 1344 found"
+    },
+    {
+      "check": "database has no duplicate (city, time) rows",
+      "passed": true,
+      "detail": "0 duplicates"
+    },
+    {
+      "check": "all configured cities are present",
+      "passed": true,
+      "detail": "Almaty, Astana, Karaganda, Shymkent"
+    },
+    {
+      "check": "stored PM2.5 values equal the cleaned values",
+      "passed": true,
+      "detail": "1344 rows compared"
+    },
+    {
+      "check": "database covers the requested period",
+      "passed": true,
+      "detail": "14 days stored, 14 requested"
+    },
+    {
+      "check": "repeated loading creates no duplicates (idempotency)",
+      "passed": true,
+      "detail": "see data/idempotency_report.json"
+    },
+    {
+      "check": "validation schema detects the deliberately invalid test records",
+      "passed": true,
+      "detail": "see data/validation_test_results.csv"
+    },
+    {
+      "check": "at least 200 records collected",
+      "passed": true,
+      "detail": "1344"
+    },
+    {
+      "check": "at least 200 messages published and consumed",
+      "passed": true,
+      "detail": "published=1344 consumed=1344"
+    }
+  ]
+}

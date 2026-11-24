@@ -1,0 +1,52 @@
+{
+  "total_records": 1344,
+  "valid_records": 1344,
+  "invalid_records": 0,
+  "handling_strategy": "invalid rows are quarantined in data/invalid_records.csv and excluded from further stages",
+  "rules": [
+    {
+      "name": "R1 data types",
+      "description": "Every column must have the expected type (float for measurements, str for text, datetime for `time`); values that cannot be converted are rejected."
+    },
+    {
+      "name": "R2 required fields",
+      "description": "record_id, city, region, latitude, longitude, time and collected_at must not be null."
+    },
+    {
+      "name": "R3 numerical ranges",
+      "description": "pm10/pm2_5/nitrogen_dioxide/ozone in [0, 1000], sulphur_dioxide in [0, 2000], carbon_monoxide in [0, 50000] µg/m³, european_aqi in [0, 500]; latitude in [40, 56], longitude in [46, 88]. Missing measurements (null) are allowed here and handled in cleaning."
+    },
+    {
+      "name": "R4 allowed categories",
+      "description": "city must be one of the four configured cities and region one of the configured regions."
+    },
+    {
+      "name": "R5 date/time validation",
+      "description": "time must be a valid timestamp inside the requested collection window."
+    },
+    {
+      "name": "R6 unique identifier",
+      "description": "record_id must be unique (repeated occurrences are rejected, the first one is kept)."
+    },
+    {
+      "name": "R7 identifier format",
+      "description": "record_id must look like '<city>_YYYY-MM-DDTHH:MM'."
+    },
+    {
+      "name": "R8 unique (city, time)",
+      "description": "A city may have only one measurement per timestamp."
+    },
+    {
+      "name": "R9 custom cross-column rule",
+      "description": "PM2.5 is a part of PM10, therefore pm2_5 must not be larger than pm10 when both are present."
+    }
+  ],
+  "failures_by_rule": {},
+  "validation_test": {
+    "test_records_injected": 6,
+    "test_records_detected": 6,
+    "real_rows_wrongly_rejected": 0,
+    "all_detected": true,
+    "real_sample_rows": 5
+  }
+}
